@@ -1,0 +1,309 @@
+.about-page-container1 {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: center;
+    flex-direction: column;
+  }
+   
+  .about-page-about-page {
+    width: 100%;
+    height: 1981px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(14, 16, 14, 1);
+  }
+   
+  .about-page-component2 {
+    top: 0px;
+    left: -36px;
+    width: 1504px;
+    height: 1995px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    justify-content: center;
+  }
+   
+  .about-page-rectangle7 {
+    top: 1919px;
+    left: 36px;
+    width: 1280px;
+    height: 62px;
+    position: absolute;
+  }
+   
+  .about-page-text10 {
+    left: 679px;
+    color: rgba(255, 255, 255, 1);
+    width: 297px;
+    bottom: 30px;
+    height: auto;
+    position: absolute;
+    font-size: 30px;
+    font-style: Regular;
+    text-align: left;
+    font-family: Afacad;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-screenshot20251015at23121pm1 {
+    top: 0px;
+    left: 0px;
+    width: 1504px;
+    height: 848px;
+    position: absolute;
+  }
+   
+  .about-page-text11 {
+    top: 373px;
+    left: 539px;
+    color: rgba(255, 247, 228, 1);
+    height: auto;
+    position: absolute;
+    font-size: 90px;
+    font-style: Regular;
+    text-align: left;
+    font-family: Afacad;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-rectangle6 {
+    top: 36px;
+    right: 106px;
+    width: 356px;
+    height: 48px;
+    position: absolute;
+    border-radius: 22px;
+  }
+   
+  .about-page-text12 {
+    top: 42px;
+    left: 1059px;
+    color: rgba(94, 93, 93, 1);
+    height: auto;
+    position: absolute;
+    font-size: 25px;
+    font-style: italic;
+    text-align: left;
+    font-family: Afacad;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-text13 {
+    top: 786px;
+    left: 151px;
+    color: rgba(255, 247, 228, 1);
+    height: auto;
+    position: absolute;
+    font-size: 30px;
+    font-style: Regular;
+    text-align: left;
+    font-family: Afacad;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-frame1 {
+    gap: 10px;
+    top: 779px;
+    left: 470px;
+    width: 92px;
+    height: 60px;
+    display: flex;
+    padding: 10px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    justify-content: center;
+  }
+   
+  .about-page-frame21 {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+   
+  .about-page-text14 {
+    color: rgba(255, 247, 228, 1);
+    height: auto;
+    font-size: 30px;
+    font-style: Bold;
+    text-align: left;
+    font-family: Afacad;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 70px;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-frame3 {
+    gap: 10px;
+    top: 779px;
+    left: 767px;
+    width: 111px;
+    height: 60px;
+    display: flex;
+    padding: 10px;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+    justify-content: center;
+  }
+   
+  .about-page-frame22 {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+   
+  .about-page-text15 {
+    color: rgba(255, 247, 228, 1);
+    height: auto;
+    font-size: 30px;
+    font-style: Regular;
+    text-align: left;
+    font-family: Afacad;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 300px;
+    font-stretch: normal;
+    margin-right: var(--dl-layout-space-twounits);
+    text-decoration: none;
+  }
+   
+  .about-page-text16 {
+    top: 791px;
+    left: 0x;
+    color: rgba(255, 247, 228, 1);
+    right: 157px;
+    height: auto;
+    position: absolute;
+    font-size: 30px;
+    font-style: Regular;
+    text-align: left;
+    font-family: Afacad;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-search {
+    top: 43px;
+    right: 125px;
+    width: 29px;
+    height: 29px;
+    position: absolute;
+  }
+   
+  .about-page-text17 {
+    top: 923px;
+    left: 299px;
+    color: rgb(150, 186, 170);
+    height: auto;
+    position: absolute;
+    font-size: 230px;
+    font-style: Regular;
+    text-align: center;
+    font-family: Luxurious Script;
+    font-weight: 400;
+    line-height: 0.9;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-text20 {
+    font-size: 60px;
+    font-family: "Afacad";
+  }
+   
+  .about-page-text21 {
+    left: 307px;
+    color: rgb(113, 182, 155);
+    width: 1027px;
+    bottom: 105px;
+    height: auto;
+    position: absolute;
+    font-size: 30px;
+    font-style: Light;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 300;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+   
+  .about-page-text22 {
+    color: #71b69b;
+  }
+   
+  .about-page-text25 {
+    color: #71b69b;
+  }
+   
+  .about-page-text29 {
+    color: #97baab;
+    font-weight: 500;
+  }
+   
+  .about-page-text32 {
+    color: #97baab;
+    font-weight: 500;
+  }
+   
+  .about-page-link {
+    display: contents;
+  }
+   
+  .about-page-container2 {
+    right: 50px;
+    border: 1px solid #ffffff5c;
+    bottom: 30px;
+    display: flex;
+    z-index: 22;
+    position: fixed;
+    box-shadow: 5px 5px 10px 0px rgba(31, 31, 31, 0.4);
+    min-height: auto;
+    align-items: center;
+    padding-top: 8px;
+    padding-left: 12px;
+    border-radius: 8px;
+    padding-right: 12px;
+    padding-bottom: 8px;
+    backdrop-filter: blur(6px);
+    background-color: rgba(41, 41, 41, 0.41);
+  }
+   
+  .about-page-icon1 {
+    width: 24px;
+    margin-right: 4px;
+  }
+   
+  .about-page-text36 {
+    color: white;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+  }
