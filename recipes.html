@@ -1,130 +1,265 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tsunam Eats — Recipes</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Afacad:wght@300;400;600&family=Luxurious+Script&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recipes • Tsunam Eats</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Global site styles (same one your homepage uses) -->
   <link rel="stylesheet" href="styles.css" />
+  <!-- Recipes page styles -->
+  <link rel="stylesheet" href="recipes.css" />
 </head>
 <body>
-  <header class="site-hero">
-    <div class="hero-media" style="background-image:url('images/Homescreenimg.jpg')"></div>
-    <div class="hero-overlay"></div>
-    <form class="search">
-      <input type="text" placeholder="What Are You Craving?"><button>⌕</button>
+  <!-- HERO -->
+  <section class="hero">
+    <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
+    <div class="overlay"></div>
+
+    <!-- Optional search pill -->
+    <form class="recipe-search" role="search" aria-label="Search recipes">
+      <input type="search" placeholder="What Are You Craving?" />
+      <button type="submit" aria-label="Search">🔍</button>
     </form>
-    <div class="brand-bar"><div class="brand">TSUNAM EATS</div></div>
-  </header>
 
-  <div class="nav-strip">
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a class="active" href="recipes.html">Recipes</a>
-      <a href="contact.html">Contact</a>
+    <h1 class="logo">TSUNAM EATS</h1>
+
+    <!-- Bottom transparent nav -->
+    <nav class="hero-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a class="active" href="recipes.html">Recipes</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </nav>
-  </div>
+  </section>
 
-  <main class="container">
-    <h1 class="center">Recipes</h1>
-    <p class="h-sub center" style="margin-top:-.5em">Lip Smacking, Finger Licking Good</p>
+  <!-- PAGE BODY -->
+  <main class="recipes-wrap">
+    <header class="recipes-headings">
+      <h2 class="script">Recipes</h2>
+      <p class="tagline">Lip Smacking, Finger Licking Good</p>
+    </header>
 
-    <div class="filters">
-      <button class="btn">Select Category ▾</button>
-      <button class="btn">Add Filter ≡</button>
+    <!-- CONTROLS + ACTIVE TAGS -->
+    <div class="controls-row">
+      <div class="controls-left">
+        <!-- CATEGORY DROPDOWN (single select) -->
+        <div class="dropdown" id="category-dropdown">
+          <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span>Category</span>
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+          <ul class="drop-menu" role="listbox" aria-label="Category options">
+            <li data-value="Breakfast">Breakfast</li>
+            <li data-value="Lunch">Lunch</li>
+            <li data-value="Dinner">Dinner</li>
+            <li data-value="Appetizer">Appetizer</li>
+            <li data-value="Dessert">Dessert</li>
+            <li data-value="Drink">Drink</li>
+          </ul>
+        </div>
+
+        <!-- FILTER DROPDOWN (multi add) -->
+        <div class="dropdown" id="filter-dropdown">
+          <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span>Add Filter</span>
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+          <ul class="drop-menu" role="listbox" aria-label="Filter options">
+            <li data-value="Total Time (Low to High)">Total Time (Low to High)</li>
+            <li data-value="Ingredients (Low to High)">Ingredients (Low to High)</li>
+            <li data-value="Vegetarian">Vegetarian</li>
+            <li data-value="Nut Free">Nut Free</li>
+            <li data-value="Dairy Free">Dairy Free</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="controls-right">
+        <div class="active-tags" id="active-tags" aria-live="polite">
+          <span class="tags-placeholder">No filters selected</span>
+        </div>
+        <button class="clear-all" id="clear-all" type="button" aria-label="Clear all filters" disabled>Clear all</button>
+      </div>
     </div>
 
+    <!-- GRID OF RECIPES (placeholder images) -->
     <section class="grid">
-      <!-- 12 cards (placeholder media + titles/times like your comp) -->
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Kale &amp; Ricotta Quiche</h3>
-          <div class="meta">40 mins</div>
-        </div>
+        <img src="foodimages/Q1.jpg" alt="Quiche Main Pic">
+        <h3>Kale & Ricotta Quiche</h3>
+        <p class="meta"><span>40 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Fish Sandwiches</h3>
-          <div class="meta">45 mins</div>
-        </div>
+        <img src="foodimages/FS1.jpg" alt="Fish Sando Main Pic">
+        <h3>Fish Sandwiches</h3>
+        <p class="meta"><span>45 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Freekeh Salad</h3>
-          <div class="meta">45 mins</div>
-        </div>
+        <img src="foodimages/FrS1.jpg" alt="Freekeh Main Pic">
+        <h3>Freekeh Salad</h3>
+        <p class="meta"><span>45 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Spicy Korean Rice Cakes</h3>
-          <div class="meta">40 mins</div>
-        </div>
+        <img src="foodimages/recipe-04.jpg" alt="Recipe placeholder 4">
+        <h3>Spicy Korean Rice Cakes</h3>
+        <p class="meta"><span>40 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Mushroom Potato Tacos</h3>
-          <div class="meta">20 mins</div>
-        </div>
+        <img src="images/recipe-05.jpg" alt="Recipe placeholder 5">
+        <h3>Mushroom Potato Tacos</h3>
+        <p class="meta"><span>20 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Thai Chicken Curry</h3>
-          <div class="meta">30 mins</div>
-        </div>
+        <img src="images/recipe-06.jpg" alt="Recipe placeholder 6">
+        <h3>Thai Chicken Curry</h3>
+        <p class="meta"><span>30 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Fregola Sarda Salad</h3>
-          <div class="meta">30 mins</div>
-        </div>
+        <img src="images/recipe-07.jpg" alt="Recipe placeholder 7">
+        <h3>Fregola Sarda Salad</h3>
+        <p class="meta"><span>30 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Tilapia and Black Lentil Salad</h3>
-          <div class="meta">40 mins</div>
-        </div>
+        <img src="images/recipe-08.jpg" alt="Recipe placeholder 8">
+        <h3>Tilapia & Black Lentil Salad</h3>
+        <p class="meta"><span>40 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Enchilada Roja</h3>
-          <div class="meta">40 mins</div>
-        </div>
+        <img src="images/recipe-09.jpg" alt="Recipe placeholder 9">
+        <h3>Enchilada Roja</h3>
+        <p class="meta"><span>40 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Chicken Lettuce Cups</h3>
-          <div class="meta">30 mins</div>
-        </div>
+        <img src="images/recipe-10.jpg" alt="Recipe placeholder 10">
+        <h3>Chicken Lettuce Cups</h3>
+        <p class="meta"><span>30 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Roasted Squash Curry</h3>
-          <div class="meta">30 mins</div>
-        </div>
+        <img src="images/recipe-11.jpg" alt="Recipe placeholder 11">
+        <h3>Roasted Squash Curry</h3>
+        <p class="meta"><span>30 mins</span></p>
       </article>
       <article class="card">
-        <div class="media"></div>
-        <div class="body">
-          <h3>Spicy Chicken Quesadillas</h3>
-          <div class="meta">40 mins</div>
-        </div>
+        <img src="images/recipe-12.jpg" alt="Recipe placeholder 12">
+        <h3>Spicy Chicken Quesadillas</h3>
+        <p class="meta"><span>40 mins</span></p>
       </article>
     </section>
   </main>
 
-  <footer class="footer">@tsunam.eats</footer>
+  <footer>
+    <p>@tsunam.eats</p>
+  </footer>
+
+  <!-- JS: dropdowns + chips -->
+  <script>
+  (() => {
+    const tagBox = document.getElementById('active-tags');
+    const clearAllBtn = document.getElementById('clear-all');
+    const catDrop  = document.getElementById('category-dropdown');
+    const filtDrop = document.getElementById('filter-dropdown');
+
+    let selectedCategory = '';
+    const selectedFilters = new Set();
+
+    function renderTags() {
+      tagBox.innerHTML = '';
+      if (selectedCategory) tagBox.appendChild(makeTag('Category', selectedCategory, 'category'));
+      selectedFilters.forEach(v => tagBox.appendChild(makeTag('Filter', v, 'filter')));
+
+      if (!selectedCategory && selectedFilters.size === 0) {
+        const span = document.createElement('span');
+        span.className = 'tags-placeholder';
+        span.textContent = 'No filters selected';
+        tagBox.appendChild(span);
+        clearAllBtn.disabled = true;
+      } else {
+        clearAllBtn.disabled = false;
+      }
+    }
+
+    function makeTag(kind, value, key) {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      const k = document.createElement('em');
+      k.className = 'tag-kind';
+      k.textContent = kind + ':';
+      const v = document.createElement('span');
+      v.className = 'tag-value';
+      v.textContent = value;
+      const x = document.createElement('button');
+      x.className = 'tag-x';
+      x.type = 'button';
+      x.textContent = '✕';
+      x.addEventListener('click', () => {
+        if (key === 'category') selectedCategory = '';
+        else selectedFilters.delete(value);
+        renderTags();
+      });
+      tag.append(k, v, x);
+      return tag;
+    }
+
+    function closeAll() {
+      document.querySelectorAll('.dropdown').forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.drop-trigger').setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // Toggle dropdowns
+    document.querySelectorAll('.dropdown .drop-trigger').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const dd = btn.closest('.dropdown');
+        const willOpen = !dd.classList.contains('open');
+        closeAll();
+        if (willOpen) {
+          dd.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Item selection
+    catDrop.querySelectorAll('.drop-menu li').forEach(li => {
+      li.addEventListener('click', () => {
+        selectedCategory = li.dataset.value;
+        renderTags();
+        closeAll();
+      });
+    });
+    filtDrop.querySelectorAll('.drop-menu li').forEach(li => {
+      li.addEventListener('click', () => {
+        selectedFilters.add(li.dataset.value);
+        renderTags();
+        closeAll();
+      });
+    });
+
+    // Close when clicking outside / pressing ESC
+    document.addEventListener('click', closeAll);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+    // Clear all
+    clearAllBtn.addEventListener('click', () => {
+      selectedCategory = '';
+      selectedFilters.clear();
+      renderTags();
+    });
+
+    renderTags();
+  })();
+  </script>
 </body>
 </html>

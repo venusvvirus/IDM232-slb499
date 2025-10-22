@@ -1,43 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tsunam Eats — About</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Afacad:wght@300;400;600&family=Luxurious+Script&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About • Tsunam Eats</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Global site styles (same one your homepage uses) -->
   <link rel="stylesheet" href="styles.css" />
+  <!-- About-page tweaks -->
+  <link rel="stylesheet" href="about.css" />
 </head>
 <body>
-  <header class="site-hero">
-    <div class="hero-media" style="background-image:url('images/Homescreenimg.jpg')"></div>
-    <div class="hero-overlay"></div>
-    <form class="search" action="recipes.html">
-      <input type="text" placeholder="What Are You Craving?"><button>⌕</button>
-    </form>
-    <div class="brand-bar"><div class="brand">TSUNAM EATS</div></div>
-  </header>
+  <!-- HERO (reuses the same hero styles from homepage) -->
+  <section class="hero">
+    <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
+    <div class="overlay"></div>
 
-  <div class="nav-strip">
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a class="active" href="about.html">About</a>
-      <a href="recipes.html">Recipes</a>
-      <a href="contact.html">Contact</a>
+    <!-- Site Title (same placement style; nudge top % if you need to align) -->
+    <h1 class="logo">TSUNAM EATS</h1>
+
+    <!-- Bottom transparent nav -->
+    <nav class="hero-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="about.html">About</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </nav>
-  </div>
+  </section>
 
-  <main class="container">
-    <h1 class="center">Our Story</h1>
-    <p class="h-sub center" style="margin-top:-.5em">from Dinner Dates to Homemade Plates</p>
+  <!-- ABOUT BODY -->
+  <main class="about">
+    <header class="about-headings">
+      <h2 class="script">Our Story</h2>
+      <p class="tagline">from Dinner Dates to Homemade Plates</p>
+    </header>
 
-    <article class="story">
-      <p class="lead"><strong>@tsunam.eats</strong> was created in 2024 by a Drexel college couple. The name nods to their combined names and to the beginning of the word <em>tsunami</em>—a playful merge with “eats.”</p>
-      <p>Since then, every meal they make together has been posted on Instagram. With the account’s second anniversary approaching, they decided it was time to share the recipes—each one made with love.</p>
-      <p><em>We hope you enjoy dishes that have fueled years of amazing memories.</em></p>
-    </article>
+    <section class="about-copy">
+      <p>
+        <span class="handle">@tsunam.eats</span> was created in 2024 by
+        Saffron Buscemi and Kunaal Krishnan, a Drexel college couple.
+        The name pays homage to their combined names, Sunaal, which sounds
+        similar to the beginning of the word tsunami. Somewhere along the
+        lines, they decided merging the ship name with eats was a great
+        play on the word.
+      </p>
+
+      <p>
+        Since then, every meal they make together has been posted on that
+        Instagram account. With the account’s 2 year anniversary coming up,
+        they thought it was time to share each of the recipes, made with the
+        utmost amount of love.
+      </p>
+
+      <p class="note">
+        We hope you enjoy dishes that have fueled years of amazing memories,<br>
+        <strong>Saffron &amp; Kunaal</strong>
+      </p>
+    </section>
   </main>
 
-  <footer class="footer">@tsunam.eats</footer>
+  <footer>
+    <p>@tsunam.eats</p>
+  </footer>
 </body>
 </html>
+
