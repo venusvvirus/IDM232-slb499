@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tsunam Eats — Contact</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Afacad:wght@300;400;600&family=Luxurious+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-hero">
+    <div class="hero-media" style="background-image:url('images/Homescreenimg.jpg')"></div>
+    <div class="hero-overlay"></div>
+    <form class="search">
+      <input type="text" placeholder="What Are You Craving?"><button>⌕</button>
+    </form>
+    <div class="brand-bar"><div class="brand">TSUNAM EATS</div></div>
+  </header>
+
+  <div class="nav-strip">
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="recipes.html">Recipes</a>
+      <a class="active" href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <main class="container center">
+    <h1>Contact</h1>
+    <p class="h-sub" style="margin-top:-.5em">&amp; Never Miss a Flood of Recipes</p>
+
+    <form class="form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+      <label for="name">Your Name</label>
+      <input id="name" type="text" placeholder="Jane Doe" required>
+
+      <label for="email">Your Email</label>
+      <input id="email" type="email" placeholder="you@example.com" required>
+
+      <label for="msg">Message (Optional)</label>
+      <textarea id="msg" placeholder="Say hello…"></textarea>
+
+      <button class="primary" type="submit">Submit &amp; Subscribe</button>
+    </form>
+  </main>
+
+  <footer class="footer">@tsunam.eats</footer>
+</body>
+</html>
