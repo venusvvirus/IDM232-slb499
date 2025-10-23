@@ -1,50 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tsunam Eats — Contact</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Afacad:wght@300;400;600&family=Luxurious+Script&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact • Tsunam Eats</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Global site styles (same as home/about/recipes) -->
   <link rel="stylesheet" href="styles.css" />
+  <!-- Contact page styles -->
+  <link rel="stylesheet" href="contact.css" />
 </head>
 <body>
-  <header class="site-hero">
-    <div class="hero-media" style="background-image:url('images/Homescreenimg.jpg')"></div>
-    <div class="hero-overlay"></div>
-    <form class="search">
-      <input type="text" placeholder="What Are You Craving?"><button>⌕</button>
-    </form>
-    <div class="brand-bar"><div class="brand">TSUNAM EATS</div></div>
-  </header>
+  <!-- HERO -->
+  <section class="hero">
+    <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
+    <div class="overlay"></div>
 
-  <div class="nav-strip">
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="recipes.html">Recipes</a>
-      <a class="active" href="contact.html">Contact</a>
+    <h1 class="logo">TSUNAM EATS</h1>
+
+    <nav class="hero-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a class="active" href="contact.html">Contact</a></li>
+      </ul>
     </nav>
-  </div>
+  </section>
 
-  <main class="container center">
-    <h1>Contact</h1>
-    <p class="h-sub" style="margin-top:-.5em">&amp; Never Miss a Flood of Recipes</p>
+  <!-- CONTACT: FORM VIEW -->
+  <main class="contact-wrap" id="contact">
+    <header class="contact-headings">
+      <h2 class="script">Contact</h2>
+      <p class="tagline">&amp; Never Miss a Flood of Recipes</p>
+    </header>
 
-    <form class="form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
-      <label for="name">Your Name</label>
-      <input id="name" type="text" placeholder="Jane Doe" required>
+    <section class="form-card" id="form-view" aria-live="polite">
+      <form id="contact-form" novalidate>
+        <label class="field">
+          <span>Your Name</span>
+          <input type="text" name="name" required placeholder="Enter your name"/>
+        </label>
 
-      <label for="email">Your Email</label>
-      <input id="email" type="email" placeholder="you@example.com" required>
+        <label class="field">
+          <span>Your Email</span>
+          <input type="email" name="email" required placeholder="name@example.com"/>
+        </label>
 
-      <label for="msg">Message (Optional)</label>
-      <textarea id="msg" placeholder="Say hello…"></textarea>
+        <label class="field">
+          <span>Message (Optional)</span>
+          <textarea name="message" rows="6" placeholder="Say hello!"></textarea>
+        </label>
 
-      <button class="primary" type="submit">Submit &amp; Subscribe</button>
-    </form>
+        <div class="actions">
+          <button type="submit" class="submit">Submit &amp; Subscribe</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- THANK-YOU VIEW -->
+    <section class="thankyou" id="thanks-view" hidden>
+      <h2 class="thanks-script">Thank You!</h2>
+      <p class="thanks-sub">We Will Get Back to You Shortly</p>
+
+      <button class="return" id="return-btn" type="button" aria-label="Return to form">
+        <span class="return-arrow">←</span> <span class="return-text">Return</span>
+      </button>
+    </section>
   </main>
 
-  <footer class="footer">@tsunam.eats</footer>
+  <footer>
+    <p>@tsunam.eats</p>
+  </footer>
+
+  <!-- Tiny JS: swap views on submit / return -->
+  <script>
+    const heading = document.querySelector('.contact-headings');
+
+    (function () {
+      const form = document.getElementById('contact-form');
+      const formView = document.getElementById('form-view');
+      const thanksView = document.getElementById('thanks-view');
+      const returnBtn = document.getElementById('return-btn');
+
+      form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  if (!form.name.value.trim() || !form.email.value.trim()) {
+    if (!form.name.value.trim()) form.name.focus();
+    else form.email.focus();
+    return;
+  }
+
+  formView.hidden = true;
+  thanksView.hidden = false;
+  heading.style.display = 'none'; // Hide heading
+  
+});
+
+returnBtn.addEventListener('click', () => {
+  thanksView.hidden = true;
+  formView.hidden = false;
+  heading.style.display = ''; // Show heading again
+
+});
+    })();
+  </script>
 </body>
 </html>
