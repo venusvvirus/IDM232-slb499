@@ -60,28 +60,35 @@ html { scroll-behavior: smooth; }
     font-family: 'Inter', sans-serif;
     color: #e9efe9;
     line-height: 1.7;
-    margin: 8px auto 0;
+    margin: 20px auto 0;   /* lowered by increasing top margin */
     max-width: 720px;
+    position: relative;
+    top: 8px;              /* slight downward nudge */
   }
   
-  /* Metrics */
   .metrics {
     display: grid;
     grid-template-columns: repeat(4, auto);
-    gap: 18px 22px;
+    gap: 22px 28px;              /* slightly more breathing room */
     justify-content: center;
-    margin: 8px 0 10px;
-    text-align: left;
+    text-align: center;
+    margin: 24px auto 20px;      /* lowers block a bit */
+    position: relative;
+    top: 10px;                   /* pushes it slightly downward */
   }
+  
   .metrics dt {
     font-family: 'Afacad', sans-serif;
     color: #8fd0b7;
     font-weight: 600;
+    font-size: 1rem;
   }
+  
   .metrics dd {
     margin: 0;
     font-family: 'Inter', sans-serif;
     color: #e9efe9;
+    font-size: 0.95rem;
   }
   
   /* Ingredients */
@@ -116,16 +123,46 @@ html { scroll-behavior: smooth; }
   }
   .step p {
     font-family: 'Inter', sans-serif;
-    color: #e9efe9;
+    color: #71B69C;       /* minty green text */
     line-height: 1.7;
-    margin: 0 0 10px;
+    margin: 0 0 60px;
+  }
+  .step figure {
+    margin-bottom: 60px;
   }
   .step figure img {
     width: 100%;
     border-radius: 6px;
     display: block;
+    margin-bottom: 60px;
     filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
   }
+
+  /* Back to Top button (bottom) */
+.to-top-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;     /* space above it */
+    margin-bottom: 40px;  /* pushes it off the very bottom edge */
+  }
+  
+  .to-top {
+    border: 1px solid rgba(255,255,255,0.35);
+    background: transparent;
+    color: #e9efe9;
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  
+  .to-top:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-1px);
+  }
+  
   
   /* Responsive */
   @media (max-width: 640px) {
