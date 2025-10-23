@@ -6,20 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tsunam Eats</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- HERO -->
   <section class="hero">
     <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
     <div class="overlay"></div>
-
-    <!-- Centered Site Title (lowered) -->
     <h1 class="logo">TSUNAM EATS</h1>
-
-    <!-- Bottom Navigation on the image -->
     <nav class="hero-nav">
       <ul>
         <li><a class="active" href="index.html">Home</a></li>
@@ -30,40 +24,41 @@
     </nav>
   </section>
 
-  <!-- INTRO HEADING -->
   <section class="intro">
     <div class="intro-heading">
       <h2>Wave Hello</h2>
       <p>to Your Next Favorite Meal</p>
     </div>
 
-    <!-- PLATES -->
     <div class="plates">
-      <!-- Plate 1 -->
-      <div class="plate-item">
+
+      <a href="about.html" class="plate-item" aria-label="Go to About page">
         <img src="images/fork.png" alt="Fork" class="fork utensil">
         <img src="images/plateimg.png" alt="Plate" class="plate">
         <div class="plate-text">THE SECRET<br>INGREDIENT</div>
-      </div>
-
-      <!-- Plate 2 -->
-      <div class="plate-item">
+      </a>
+    
+      <a href="recipes.html" class="plate-item" aria-label="Go to Recipes page">
         <img src="images/knife.png" alt="Knife" class="knife utensil">
         <img src="images/plateimg.png" alt="Plate" class="plate">
         <div class="plate-text">DISCOVER</div>
-      </div>
-
-      <!-- Plate 3 -->
-      <div class="plate-item">
+      </a>
+    
+      <a href="contact.html" class="plate-item" aria-label="Go to Contact page">
         <img src="images/spoon.png" alt="Spoon" class="spoon utensil">
         <img src="images/plateimg.png" alt="Plate" class="plate">
         <div class="plate-text">SUBSCRIBE</div>
-      </div>
+      </a>
     </div>
   </section>
 
-  <footer>
-    <p>@tsunam.eats</p>
-  </footer>
+ <footer>
+  <p>
+    <a href="https://www.instagram.com/tsunam.eats/" target="_blank" rel="noopener noreferrer">
+      @tsunam.eats
+    </a>
+  </p>
+</footer>
+  
 </body>
 </html>

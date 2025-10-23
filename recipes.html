@@ -5,24 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Recipes • Tsunam Eats</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <!-- Global site styles (same one your homepage uses) -->
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Recipes page styles -->
-  <link rel="stylesheet" href="recipes.css" />
+<link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="recipes.css" />
 </head>
 <body>
-  <!-- HERO -->
+
   <section class="hero">
     <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
     <div class="overlay"></div>
 
-
     <h1 class="logo">TSUNAM EATS</h1>
 
-    <!-- Bottom transparent nav -->
     <nav class="hero-nav">
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -33,17 +27,14 @@
     </nav>
   </section>
 
-  <!-- PAGE BODY -->
   <main class="recipes-wrap">
     <header class="recipes-headings">
       <h2 class="script">Recipes</h2>
       <p class="tagline">Lip Smacking, Finger Licking Good</p>
     </header>
 
-    <!-- CONTROLS + ACTIVE TAGS -->
     <div class="controls-row">
       <div class="controls-left">
-        <!-- CATEGORY DROPDOWN (single select) -->
         <div class="dropdown" id="category-dropdown">
           <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
             <span>Category</span>
@@ -61,7 +52,6 @@
           </ul>
         </div>
 
-        <!-- FILTER DROPDOWN (multi add) -->
         <div class="dropdown" id="filter-dropdown">
           <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
             <span>Add Filter</span>
@@ -87,7 +77,6 @@
       </div>
     </div>
 
-    <!-- GRID OF RECIPES (placeholder images) -->
     <section class="grid">
       <article class="card">
         <a href="quiche.html">
@@ -155,10 +144,13 @@
   </main>
 
   <footer>
-    <p>@tsunam.eats</p>
+    <p>
+      <a href="https://www.instagram.com/tsunam.eats/" target="_blank" rel="noopener noreferrer">
+        @tsunam.eats
+      </a>
+    </p>
   </footer>
 
-  <!-- JS: dropdowns + chips -->
   <script>
   (() => {
     const tagBox = document.getElementById('active-tags');
@@ -213,8 +205,6 @@
         d.querySelector('.drop-trigger').setAttribute('aria-expanded', 'false');
       });
     }
-
-    // Toggle dropdowns
     document.querySelectorAll('.dropdown .drop-trigger').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -227,8 +217,6 @@
         }
       });
     });
-
-    // Item selection
     catDrop.querySelectorAll('.drop-menu li').forEach(li => {
       li.addEventListener('click', () => {
         selectedCategory = li.dataset.value;
@@ -244,11 +232,9 @@
       });
     });
 
-    // Close when clicking outside / pressing ESC
     document.addEventListener('click', closeAll);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
 
-    // Clear all
     clearAllBtn.addEventListener('click', () => {
       selectedCategory = '';
       selectedFilters.clear();

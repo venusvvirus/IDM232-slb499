@@ -5,14 +5,12 @@
     --mint-soft: #a8d8c2;
   }
   
-  /* Wrapper */
   .contact-wrap{
     max-width: 980px;
     margin: 0 auto;
     padding: clamp(40px, 6vw, 84px) 20px 64px;
   }
   
-  /* Headings */
   .contact-headings{
     text-align:center;
     margin-bottom: clamp(18px, 3vw, 28px);
@@ -32,7 +30,6 @@
     margin:0;
   }
   
-  /* Form card */
   .form-card{
     background: var(--panel);
     border: 1px solid var(--panel-border);
@@ -68,7 +65,6 @@
     resize:vertical;
   }
   
-  /* Submit */
   .actions{ display:flex; justify-content:center; margin-top: 16px; }
   .submit{
     border: none;
@@ -84,7 +80,6 @@
   }
   .submit:hover{ transform: translateY(-1px); background:#111f1a; }
   
-  /* Thank-you view */
   .thankyou{
     text-align:center;
     padding: clamp(18px, 2.8vw, 34px) 0;
@@ -104,7 +99,6 @@
     margin: 6px 0 22px;
   }
   
-  /* Return button (thank-you screen) */
   .return{
     display:inline-flex;
     align-items:center;
@@ -122,7 +116,6 @@
   .return:hover{ transform: translateY(-1px); background:#2a2a2a; }
   .return-arrow{ font-size: 22px; line-height: 1; }
   
-  /* Responsive niceties */
   @media (max-width: 640px){
     .form-card{ border-radius:16px; }
   }

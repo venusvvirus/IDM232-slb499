@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact • Tsunam Eats</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Global site styles (same as home/about/recipes) -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- Contact page styles -->
   <link rel="stylesheet" href="contact.css" />
 </head>
 <body>
-  <!-- HERO -->
+
   <section class="hero">
     <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
     <div class="overlay"></div>
@@ -31,7 +28,6 @@
     </nav>
   </section>
 
-  <!-- CONTACT: FORM VIEW -->
   <main class="contact-wrap" id="contact">
     <header class="contact-headings">
       <h2 class="script">Contact</h2>
@@ -61,7 +57,6 @@
       </form>
     </section>
 
-    <!-- THANK-YOU VIEW -->
     <section class="thankyou" id="thanks-view" hidden>
       <h2 class="thanks-script">Thank You!</h2>
       <p class="thanks-sub">We Will Get Back to You Shortly</p>
@@ -73,10 +68,13 @@
   </main>
 
   <footer>
-    <p>@tsunam.eats</p>
+    <p>
+      <a href="https://www.instagram.com/tsunam.eats/" target="_blank" rel="noopener noreferrer">
+        @tsunam.eats
+      </a>
+    </p>
   </footer>
 
-  <!-- Tiny JS: swap views on submit / return -->
   <script>
     const heading = document.querySelector('.contact-headings');
 
@@ -97,17 +95,18 @@
 
   formView.hidden = true;
   thanksView.hidden = false;
-  heading.style.display = 'none'; // Hide heading
+  heading.style.display = 'none'; 
   
 });
 
 returnBtn.addEventListener('click', () => {
   thanksView.hidden = true;
   formView.hidden = false;
-  heading.style.display = ''; // Show heading again
+  heading.style.display = ''; 
 
 });
     })();
   </script>
+  
 </body>
 </html>
