@@ -3,7 +3,7 @@ require 'db.php';
 
 // Get all recipes from the database
 $sql = "SELECT id, title, slug, prep_time, cook_time, image_url FROM recipes ORDER BY created_at DESC";
-$result = $conn->query($sql);
+$result = $connection->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -27,10 +27,10 @@ $result = $conn->query($sql);
 
     <nav class="hero-nav">
   <ul>
-    <li><a href="/IDM232/index.html">Home</a></li>
-    <li><a href="/IDM232/about.html">About</a></li>
-    <li><a class="active" href="/IDM232/recipes.php">Recipes</a></li>
-    <li><a href="/IDM232/contact.html">Contact</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a class="active" href="recipes.php">Recipes</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
 

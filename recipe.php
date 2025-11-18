@@ -8,7 +8,7 @@ if (!$slug) {
 }
 
 // Load main recipe row
-$stmt = $conn->prepare("SELECT * FROM recipes WHERE slug = ?");
+$stmt = $connection->prepare("SELECT * FROM recipes WHERE slug = ?");
 $stmt->bind_param("s", $slug);
 $stmt->execute();
 $recipe = $stmt->get_result()->fetch_assoc();
@@ -20,7 +20,7 @@ if (!$recipe) {
 $recipe_id = (int)$recipe['id'];
 
 // ---------- INGREDIENTS ----------
-$stmtIng = $conn->prepare("SELECT amount, unit, item FROM ingredients WHERE recipe_id = ?");
+$stmtIng = $connection->prepare("SELECT amount, unit, item FROM ingredients WHERE recipe_id = ?");
 $stmtIng->bind_param("i", $recipe_id);
 $stmtIng->execute();
 $ingredientsResult = $stmtIng->get_result();
@@ -31,7 +31,7 @@ while ($row = $ingredientsResult->fetch_assoc()) {
 $ingredientCount = count($ingredients);
 
 // ---------- STEPS (image + text) ----------
-$stmtStep = $conn->prepare("SELECT step_number, step_text, step_image 
+$stmtStep = $connection->prepare("SELECT step_number, step_text, step_image 
                             FROM recipe_steps 
                             WHERE recipe_id = ? 
                             ORDER BY step_number ASC");
@@ -269,10 +269,10 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 
     <nav class="hero-nav">
       <ul>
- <li><a href="/IDM232/index.html">Home</a></li>
-<li><a href="/IDM232/about.html">About</a></li>
-<li><a href="/IDM232/recipes.php">Recipes</a></li>
-<li><a href="/IDM232/contact.html">Contact</a></li>
+ <li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="recipes.php">Recipes</a></li>
+<li><a href="contact.html">Contact</a></li>
 
       </ul>
     </nav>
