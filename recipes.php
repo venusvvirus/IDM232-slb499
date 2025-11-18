@@ -1,3 +1,11 @@
+<?php
+require 'db.php';
+
+// Get all recipes from the database
+$sql = "SELECT id, title, slug, prep_time, cook_time, image_url FROM recipes ORDER BY created_at DESC";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +13,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Recipes • Tsunam Eats</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css" />
-<link rel="stylesheet" href="recipes.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="recipes.css" />
 </head>
 <body>
 
@@ -18,13 +26,14 @@
     <h1 class="logo">TSUNAM EATS</h1>
 
     <nav class="hero-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a class="active" href="recipes.html">Recipes</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+  <ul>
+    <li><a href="/IDM232/index.html">Home</a></li>
+    <li><a href="/IDM232/about.html">About</a></li>
+    <li><a class="active" href="/IDM232/recipes.php">Recipes</a></li>
+    <li><a href="/IDM232/contact.html">Contact</a></li>
+  </ul>
+</nav>
+
   </section>
 
   <main class="recipes-wrap">
@@ -78,68 +87,28 @@
     </div>
 
     <section class="grid">
-      <article class="card">
-        <a href="quiche.html">
-        <img src="foodimages/Quiche/Q1.jpg" alt="Quiche Main Pic">
-      </a>
-      <h3>Kale & Ricotta Quiche</h3>
-        <p class="meta"><span>40 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/FishSandwiches/FS1.jpg" alt="FishSando Main Pic">
-        <h3>Fish Sandwiches</h3>
-        <p class="meta"><span>45 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/FreekehSalad/FrS1.jpg" alt="Freekeh Main Pic">
-        <h3>Freekeh Salad</h3>
-        <p class="meta"><span>45 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/SpicyKoreanRiceCakes/SKRC1.jpg" alt="SpicyKoreanRiceCakes Main Pic">
-        <h3>Spicy Korean Rice Cakes</h3>
-        <p class="meta"><span>40 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/MushroomPotatoTacos/MPT1.jpg" alt="MushroomPotatoTacos Main Pic">
-        <h3>Mushroom Potato Tacos</h3>
-        <p class="meta"><span>20 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/ThaiCurryChicken/TCC1.jpg" alt="ThaiCurryChicken Main Pic">
-        <h3>Thai Chicken Curry</h3>
-        <p class="meta"><span>30 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/FregolaSardaSalad/FSS1.jpg" alt="Fregola Main Pic">
-        <h3>Fregola Sarda Salad</h3>
-        <p class="meta"><span>30 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/Tilapia/T1.jpg" alt="Tilapia Main Pic">
-        <h3>Tilapia & Black Lentil Salad</h3>
-        <p class="meta"><span>40 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/Enchiladas/E1.jpg" alt="Enchilada Main Pic">
-        <h3>Enchilada Roja</h3>
-        <p class="meta"><span>40 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/ChickenLettuceCups/CLC1.jpg" alt="ChickenLettuceCups Main Pic">
-        <h3>Chicken Lettuce Cups</h3>
-        <p class="meta"><span>30 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/SquashCurry/SqC1.jpg" alt="SquashCurry Main Pic">
-        <h3>Roasted Squash Curry</h3>
-        <p class="meta"><span>30 mins</span></p>
-      </article>
-      <article class="card">
-        <img src="foodimages/SpicyChickenQuesadilla/SCQ1.jpg" alt=" SpicyChickenQuesadilla Main Pic">
-        <h3>Spicy Chicken Quesadillas</h3>
-        <p class="meta"><span>40 mins</span></p>
-      </article>
+      <?php if ($result && $result->num_rows > 0): ?>
+        <?php while ($row = $result->fetch_assoc()): ?>
+          <?php
+            // compute total time from prep + cook
+            $prep  = (int)$row['prep_time'];
+            $cook  = (int)$row['cook_time'];
+            $total = $prep + $cook;
+          ?>
+          <article class="card">
+            <!-- clicking image goes to the full recipe page -->
+            <a href="recipe.php?slug=<?php echo urlencode($row['slug']); ?>">
+              <img
+                src="<?php echo htmlspecialchars($row['image_url']); ?>"
+                alt="<?php echo htmlspecialchars($row['title']); ?>">
+            </a>
+            <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+            <p class="meta"><span><?php echo $total; ?> mins</span></p>
+          </article>
+        <?php endwhile; ?>
+      <?php else: ?>
+        <p>No recipes found in the database.</p>
+      <?php endif; ?>
     </section>
   </main>
 
