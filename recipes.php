@@ -1,8 +1,55 @@
 <?php
 require 'db.php';
 
-// Get all recipes from the database
-$sql = "SELECT id, title, slug, prep_time, cook_time, image_url FROM recipes ORDER BY created_at DESC";
+$category = isset($_GET['category']) ? $_GET['category'] : 'all';  
+$filter   = isset($_GET['filter'])   ? $_GET['filter']   : '';     
+
+$currentCategory = $category;
+$currentFilter   = $filter;
+$conditions = [];
+
+// category condition
+if ($category !== 'all' && $category !== '') {
+    $safeCategory = $connection->real_escape_string($category);
+    $conditions[] = "r.category = '$safeCategory'";
+}
+
+// dietary conditions 
+if (in_array($filter, ['vegetarian', 'nut_free', 'dairy_free'], true)) {
+    $conditions[] = "r." . $connection->real_escape_string($filter) . " = 1";
+}
+
+// ingredient count + total time
+$sql = "
+    SELECT
+        r.id,
+        r.title,
+        r.slug,
+        r.prep_time,
+        r.cook_time,
+        r.image_url,
+        r.category,
+        r.created_at,
+        (r.prep_time + r.cook_time) AS total_time,
+        COUNT(i.id) AS ingredient_count
+    FROM recipes r
+    LEFT JOIN ingredients i ON r.id = i.recipe_id
+";
+
+if (!empty($conditions)) {
+    $sql .= " WHERE " . implode(' AND ', $conditions);
+}
+
+$sql .= " GROUP BY r.id";
+
+if ($filter === 'total_time') {
+    $sql .= " ORDER BY total_time ASC, r.created_at DESC";
+} elseif ($filter === 'ingredients') {
+    $sql .= " ORDER BY ingredient_count ASC, r.created_at DESC";
+} else {
+    $sql .= " ORDER BY r.created_at DESC";
+}
+
 $result = $connection->query($sql);
 ?>
 
@@ -17,7 +64,10 @@ $result = $connection->query($sql);
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="recipes.css" />
 </head>
-<body>
+<body
+  data-current-category="<?php echo htmlspecialchars($currentCategory); ?>"
+  data-current-filter="<?php echo htmlspecialchars($currentFilter); ?>"
+>
 
   <section class="hero">
     <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
@@ -26,14 +76,13 @@ $result = $connection->query($sql);
     <h1 class="logo">TSUNAM EATS</h1>
 
     <nav class="hero-nav">
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a class="active" href="recipes.php">Recipes</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
-
+      <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a class="active" href="recipes.php">Recipes</a></li>
+        <li><a href="contact.php">Contact</a></li>
+      </ul>
+    </nav>
   </section>
 
   <main class="recipes-wrap">
@@ -44,6 +93,7 @@ $result = $connection->query($sql);
 
     <div class="controls-row">
       <div class="controls-left">
+        <!-- CATEGORY DROPDOWN -->
         <div class="dropdown" id="category-dropdown">
           <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
             <span>Category</span>
@@ -61,6 +111,7 @@ $result = $connection->query($sql);
           </ul>
         </div>
 
+        <!-- FILTER DROPDOWN -->
         <div class="dropdown" id="filter-dropdown">
           <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
             <span>Add Filter</span>
@@ -90,24 +141,42 @@ $result = $connection->query($sql);
       <?php if ($result && $result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
           <?php
-            // compute total time from prep + cook
             $prep  = (int)$row['prep_time'];
             $cook  = (int)$row['cook_time'];
             $total = $prep + $cook;
           ?>
           <article class="card">
-            <!-- clicking image goes to the full recipe page -->
             <a href="recipe.php?slug=<?php echo urlencode($row['slug']); ?>">
               <img
                 src="<?php echo htmlspecialchars($row['image_url']); ?>"
                 alt="<?php echo htmlspecialchars($row['title']); ?>">
             </a>
             <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-            <p class="meta"><span><?php echo $total; ?> mins</span></p>
+            <p class="meta">
+              <span><?php echo $total; ?> mins</span>
+            </p>
           </article>
         <?php endwhile; ?>
       <?php else: ?>
-        <p>No recipes found in the database.</p>
+        <?php if ($currentCategory !== 'all' && $currentCategory !== ''): ?>
+          <!-- No recipes yet for this category -->
+          <article class="card card-empty">
+            <h3><?php echo htmlspecialchars($currentCategory); ?> recipes to come!</h3>
+            <p class="meta">
+              We&apos;re still cooking up
+              <?php echo strtolower(htmlspecialchars($currentCategory)); ?> ideas.
+              Check back soon for new recipes.
+            </p>
+          </article>
+        <?php else: ?>
+          <!-- No recipes at all / or only filter removed everything -->
+          <article class="card card-empty">
+            <h3>No recipes found</h3>
+            <p class="meta">
+              Try changing the filters or adding more recipes.
+            </p>
+          </article>
+        <?php endif; ?>
       <?php endif; ?>
     </section>
   </main>
@@ -122,17 +191,41 @@ $result = $connection->query($sql);
 
   <script>
   (() => {
-    const tagBox = document.getElementById('active-tags');
+    const tagBox      = document.getElementById('active-tags');
     const clearAllBtn = document.getElementById('clear-all');
-    const catDrop  = document.getElementById('category-dropdown');
-    const filtDrop = document.getElementById('filter-dropdown');
+    const catDrop     = document.getElementById('category-dropdown');
+    const filtDrop    = document.getElementById('filter-dropdown');
 
-    let selectedCategory = '';
+    const currentCategoryFromPHP = document.body.dataset.currentCategory || 'all';
+    const currentFilterFromPHP   = document.body.dataset.currentFilter   || '';
+
+    let selectedCategory = currentCategoryFromPHP === 'all' ? '' : currentCategoryFromPHP;
     const selectedFilters = new Set();
+
+    const filterParamFromLabel = {
+      'Total Time (Low to High)': 'total_time',
+      'Ingredients (Low to High)': 'ingredients',
+      'Vegetarian': 'vegetarian',
+      'Nut Free': 'nut_free',
+      'Dairy Free': 'dairy_free'
+    };
+
+    const filterLabelFromParam = {
+      'total_time': 'Total Time (Low to High)',
+      'ingredients': 'Ingredients (Low to High)',
+      'vegetarian': 'Vegetarian',
+      'nut_free': 'Nut Free',
+      'dairy_free': 'Dairy Free'
+    };
+    if (currentFilterFromPHP && filterLabelFromParam[currentFilterFromPHP]) {
+      selectedFilters.add(filterLabelFromParam[currentFilterFromPHP]);
+    }
 
     function renderTags() {
       tagBox.innerHTML = '';
-      if (selectedCategory) tagBox.appendChild(makeTag('Category', selectedCategory, 'category'));
+      if (selectedCategory) {
+        tagBox.appendChild(makeTag('Category', selectedCategory, 'category'));
+      }
       selectedFilters.forEach(v => tagBox.appendChild(makeTag('Filter', v, 'filter')));
 
       if (!selectedCategory && selectedFilters.size === 0) {
@@ -159,11 +252,21 @@ $result = $connection->query($sql);
       x.className = 'tag-x';
       x.type = 'button';
       x.textContent = '✕';
+
       x.addEventListener('click', () => {
-        if (key === 'category') selectedCategory = '';
-        else selectedFilters.delete(value);
-        renderTags();
+        if (key === 'category') {
+          selectedCategory = '';
+          const params = new URLSearchParams(window.location.search);
+          params.delete('category');
+          window.location = 'recipes.php' + (params.toString() ? ('?' + params.toString()) : '');
+        } else {
+          selectedFilters.delete(value);
+          const params = new URLSearchParams(window.location.search);
+          params.delete('filter');
+          window.location = 'recipes.php' + (params.toString() ? ('?' + params.toString()) : '');
+        }
       });
+
       tag.append(k, v, x);
       return tag;
     }
@@ -174,6 +277,7 @@ $result = $connection->query($sql);
         d.querySelector('.drop-trigger').setAttribute('aria-expanded', 'false');
       });
     }
+
     document.querySelectorAll('.dropdown .drop-trigger').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -186,18 +290,33 @@ $result = $connection->query($sql);
         }
       });
     });
+
     catDrop.querySelectorAll('.drop-menu li').forEach(li => {
       li.addEventListener('click', () => {
         selectedCategory = li.dataset.value;
         renderTags();
         closeAll();
+
+        const params = new URLSearchParams(window.location.search);
+        params.set('category', selectedCategory);
+        window.location = 'recipes.php?' + params.toString();
       });
     });
+
     filtDrop.querySelectorAll('.drop-menu li').forEach(li => {
       li.addEventListener('click', () => {
-        selectedFilters.add(li.dataset.value);
+        const label = li.dataset.value;
+        const param = filterParamFromLabel[label];
+        if (!param) return;
+
+        selectedFilters.clear();
+        selectedFilters.add(label);
         renderTags();
         closeAll();
+
+        const params = new URLSearchParams(window.location.search);
+        params.set('filter', param);
+        window.location = 'recipes.php?' + params.toString();
       });
     });
 
@@ -208,6 +327,11 @@ $result = $connection->query($sql);
       selectedCategory = '';
       selectedFilters.clear();
       renderTags();
+
+      const params = new URLSearchParams(window.location.search);
+      params.delete('category');
+      params.delete('filter');
+      window.location = 'recipes.php' + (params.toString() ? ('?' + params.toString()) : '');
     });
 
     renderTags();
@@ -215,3 +339,4 @@ $result = $connection->query($sql);
   </script>
 </body>
 </html>
+

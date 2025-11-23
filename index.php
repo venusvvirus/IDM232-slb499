@@ -1,4 +1,6 @@
-
+<?php
+require 'db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,19 +12,21 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <section class="hero">
     <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
     <div class="overlay"></div>
+
     <h1 class="logo">TSUNAM EATS</h1>
+
     <nav class="hero-nav">
       <ul>
-        <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a class="active" href="index.php">Home</a></li>
+        <li><a href="about.php">About</a></li>
         <li><a href="recipes.php">Recipes</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.php">Contact</a></li> 
       </ul>
     </nav>
-    
   </section>
 
   <section class="intro">
@@ -33,7 +37,7 @@
 
     <div class="plates">
 
-      <a href="about.html" class="plate-item" aria-label="Go to About page">
+      <a href="about.php" class="plate-item" aria-label="Go to About page">
         <img src="images/fork.png" alt="Fork" class="fork utensil">
         <img src="images/plateimg.png" alt="Plate" class="plate">
         <div class="plate-text">THE SECRET<br>INGREDIENT</div>
@@ -45,21 +49,22 @@
         <div class="plate-text">DISCOVER</div>
       </a>
     
-      <a href="contact.html" class="plate-item" aria-label="Go to Contact page">
+      <a href="contact.php" class="plate-item" aria-label="Go to Contact page">
         <img src="images/spoon.png" alt="Spoon" class="spoon utensil">
         <img src="images/plateimg.png" alt="Plate" class="plate">
         <div class="plate-text">SUBSCRIBE</div>
       </a>
+
     </div>
   </section>
 
- <footer>
-  <p>
-    <a href="https://www.instagram.com/tsunam.eats/" target="_blank" rel="noopener noreferrer">
-      @tsunam.eats
-    </a>
-  </p>
-</footer>
-  
+  <footer>
+    <p>
+      <a href="https://www.instagram.com/tsunam.eats/" target="_blank" rel="noopener noreferrer">
+        @tsunam.eats
+      </a>
+    </p>
+  </footer>
+
 </body>
 </html>

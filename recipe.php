@@ -1,7 +1,6 @@
 <?php
 require 'db.php';
 
-// Get slug like recipe.php?slug=kale-ricotta-quiche
 $slug = $_GET['slug'] ?? '';
 if (!$slug) {
   die("No recipe specified.");
@@ -19,7 +18,7 @@ if (!$recipe) {
 
 $recipe_id = (int)$recipe['id'];
 
-// ---------- INGREDIENTS ----------
+// INGREDIENTS 
 $stmtIng = $connection->prepare("SELECT amount, unit, item FROM ingredients WHERE recipe_id = ?");
 $stmtIng->bind_param("i", $recipe_id);
 $stmtIng->execute();
@@ -30,7 +29,7 @@ while ($row = $ingredientsResult->fetch_assoc()) {
 }
 $ingredientCount = count($ingredients);
 
-// ---------- STEPS (image + text) ----------
+// STEPS (image + text)
 $stmtStep = $connection->prepare("SELECT step_number, step_text, step_image 
                             FROM recipe_steps 
                             WHERE recipe_id = ? 
@@ -43,7 +42,7 @@ while ($row = $stepsResult->fetch_assoc()) {
   $steps[] = $row;
 }
 
-// First step image will be used as the big ingredients collage (Q2.jpg)
+// First step image will be used as the big ingredients collage 
 $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 ?>
 <!DOCTYPE html>
@@ -53,12 +52,10 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title><?php echo htmlspecialchars($recipe['title']); ?> • Tsunam Eats</title>
 
-  <!-- Fonts + your existing CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="recipes.css" />
 
-  <!-- Layout tweaks for recipe detail page -->
   <style>
     :root {
       --mint: #71B69C;
@@ -78,7 +75,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       padding: 3rem 1rem 4rem;
     }
 
-    /* Back buttons row */
     .recipe-btn-row-left {
     text-align: left;
     margin: 1rem 0 2rem;
@@ -114,7 +110,7 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       font-size: 1.1rem;
     }
 
-    /* Big hero image (Q1) */
+    /* Big hero image */
     .recipe-main-img {
       display: block;
       width: 80%;
@@ -123,7 +119,7 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       border-radius: 18px;
     }
 
-    /* Title / subtitle / stats / intro */
+    /* Title / subtitle / intro */
     .recipe-title-block {
       text-align: center;
       margin-bottom: 2.5rem;
@@ -131,7 +127,7 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 
     .recipe-title-big {
       font-family: "Luxurious Script", cursive;
-      font-size: 6rem;  /* big like Netlify */
+      font-size: 6rem;  
       font-weight: 300;
       line-height: 1.05;
       color: var(--mint);
@@ -144,7 +140,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       margin-bottom: 1.75rem;
     }
 
-    /* shared heading style (Ingredients, Instructions, About if needed) */
     .recipe-section-title {
       font-family: "Afacad", sans-serif;
       font-weight: 700;
@@ -212,18 +207,16 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
     .ingredients-hero-img,
     .step-image {
       display: block;
-      width: 85%;            /* smaller images */
-      max-width: 750px;      /* smaller card size */
+      width: 85%;          
+      max-width: 750px;     
       margin: 0.5rem auto 1.5rem;
       border-radius: 18px;
     }
 
-    /* Instructions + step images */
     .recipe-instructions-block {
       margin-top: 2rem;
     }
 
-    /* IMPORTANT: do NOT override font-size here, only alignment & margin */
     .recipe-instructions-block h3 {
       text-align: left;
       margin: 0 0 1.25rem;
@@ -259,8 +252,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
   </style>
 </head>
 <body id="top">
-
-  <!-- HERO / NAV like rest of site -->
   <section class="hero">
     <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
     <div class="overlay"></div>
@@ -269,10 +260,10 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 
     <nav class="hero-nav">
       <ul>
- <li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
+ <li><a href="index.php">Home</a></li>
+<li><a href="about.php">About</a></li>
 <li><a href="recipes.php">Recipes</a></li>
-<li><a href="contact.html">Contact</a></li>
+<li><a href="contact.php">Contact</a></li>
 
       </ul>
     </nav>
@@ -280,7 +271,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 
   <main class="recipe-detail-wrap">
 
-    <!-- Back button -->
     <div class="recipe-btn-row-left">
       <a href="recipes.php" class="recipe-btn">
         <span class="arrow">←</span>
@@ -288,7 +278,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       </a>
     </div>
 
-    <!-- Big hero image (Q1.jpg from recipes.image_url) -->
     <?php if (!empty($recipe['image_url'])): ?>
       <img
         src="<?php echo htmlspecialchars($recipe['image_url']); ?>"
@@ -297,7 +286,7 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       >
     <?php endif; ?>
 
-    <!-- Title / subtitle / stats / intro -->
+    <!-- Title / subtitle / intro -->
     <section class="recipe-title-block">
       <h2 class="recipe-title-big">
         <?php echo htmlspecialchars($recipe['title']); ?>
@@ -342,7 +331,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       </p>
     </section>
 
-    <!-- INGREDIENTS HEADING + Q2 COLLAGE + BULLET LIST -->
     <section class="ingredients-section">
       <h3 class="recipe-section-title">Ingredients</h3>
 
@@ -365,15 +353,12 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       </div>
     </section>
 
-    <!-- INSTRUCTIONS START AFTER Q2 -->
     <section class="recipe-instructions-block">
       <h3 class="recipe-section-title">Instructions</h3>
 
       <?php foreach ($steps as $index => $step): ?>
         <article class="step-block">
           <?php
-            // For Step 1: text only (no image; Q2 already used above)
-            // For Step 2+ (index > 0): show image + text
             if ($index > 0 && !empty($step['step_image'])): ?>
               <img
                 src="<?php echo htmlspecialchars($step['step_image']); ?>"
@@ -392,7 +377,7 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       <?php endforeach; ?>
     </section>
 
-    <!-- Back-to-top button -->
+    <!-- back-to-top button -->
     <div class="recipe-btn-row-center">
       <a href="#top" class="recipe-btn">
         <span class="arrow">↑</span>

@@ -1,3 +1,6 @@
+<?php
+require 'db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,14 +22,12 @@
 
     <nav class="hero-nav">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a class="active" href="about.html">About</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a class="active" href="about.php">About</a></li>
         <li><a href="recipes.php">Recipes</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.php">Contact</a></li>
       </ul>
     </nav>
-    
-    
   </section>
 
   <main class="about">
@@ -66,7 +67,8 @@
       </a>
     </p>
   </footer>
-  
+
 </body>
 </html>
+
 
