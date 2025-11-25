@@ -1,21 +1,34 @@
 <?php
-$env_vars = [
-    'DB_SERVER'   => $_SERVER['REDIRECT_DB_SERVER']   ?? $_SERVER['DB_SERVER']   ?? null,
-    'DB_USERNAME' => $_SERVER['REDIRECT_DB_USERNAME'] ?? $_SERVER['DB_USERNAME'] ?? null,
-    'DB_PASSWORD' => $_SERVER['REDIRECT_DB_PASSWORD'] ?? $_SERVER['DB_PASSWORD'] ?? null,
-    'DB_NAME'     => $_SERVER['REDIRECT_DB_NAME']     ?? $_SERVER['DB_NAME']     ?? null
-];
+$isLocal = ($_SERVER['SERVER_NAME'] ?? '') === 'localhost';
 
-if (in_array(null, $env_vars, true))
-    die('Missing required environment variables');
+if ($isLocal) {
+    define('DB_SERVER', 'localhost');
+    define('DB_USER',   'root');
+    define('DB_PASS',   'root');
+    define('DB_NAME',   'tsunameats_db'); 
+}
 
-define('DB_SERVER', $env_vars['DB_SERVER']);
-define('DB_USER',   $env_vars['DB_USERNAME']);
-define('DB_PASS',   $env_vars['DB_PASSWORD']);
-define('DB_NAME',   $env_vars['DB_NAME']);
+else {
+    $env_vars = [
+        'DB_SERVER'   => $_SERVER['REDIRECT_DB_SERVER']   ?? $_SERVER['DB_SERVER']   ?? null,
+        'DB_USERNAME' => $_SERVER['REDIRECT_DB_USERNAME'] ?? $_SERVER['DB_USERNAME'] ?? null,
+        'DB_PASSWORD' => $_SERVER['REDIRECT_DB_PASSWORD'] ?? $_SERVER['DB_PASSWORD'] ?? null,
+        'DB_NAME'     => $_SERVER['REDIRECT_DB_NAME']     ?? $_SERVER['DB_NAME']     ?? null
+    ];
 
-$connection = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+    if (in_array(null, $env_vars, true)) {
+        die('Missing required environment variables');
+    }
 
-if ($connection->connect_error)
-    die("Connection failed: " . $connection->connect_error);
-    ?>
+    define('DB_SERVER', $env_vars['DB_SERVER']);
+    define('DB_USER',   $env_vars['DB_USERNAME']);
+    define('DB_PASS',   $env_vars['DB_PASSWORD']);
+    define('DB_NAME',   $env_vars['DB_NAME']);
+}
+
+$connection = @new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+
+if ($connection->connect_errno) {
+    die("Database connection not available.");
+}
+

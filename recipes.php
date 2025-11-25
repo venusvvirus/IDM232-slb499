@@ -1,25 +1,31 @@
 <?php
-require 'db.php';
+require_once 'db.php';
 
-$category = isset($_GET['category']) ? $_GET['category'] : 'all';  
-$filter   = isset($_GET['filter'])   ? $_GET['filter']   : '';     
+if (!isset($connection) || !$connection instanceof mysqli) {
+    die('Database connection not available.');
+}
+
+$category = $_GET['category'] ?? 'all';
+$filter   = $_GET['filter']   ?? '';
 
 $currentCategory = $category;
 $currentFilter   = $filter;
+
 $conditions = [];
 
-// category condition
+// Category condition
 if ($category !== 'all' && $category !== '') {
-    $safeCategory = $connection->real_escape_string($category);
-    $conditions[] = "r.category = '$safeCategory'";
+    $safeCategory  = $connection->real_escape_string($category);
+    $conditions[]  = "r.category = '$safeCategory'";
 }
 
-// dietary conditions 
+// Filter conditions
 if (in_array($filter, ['vegetarian', 'nut_free', 'dairy_free'], true)) {
-    $conditions[] = "r." . $connection->real_escape_string($filter) . " = 1";
+    $col          = $connection->real_escape_string($filter);
+    $conditions[] = "r.$col = 1";
 }
 
-// ingredient count + total time
+// Base query
 $sql = "
     SELECT
         r.id,
@@ -36,12 +42,14 @@ $sql = "
     LEFT JOIN ingredients i ON r.id = i.recipe_id
 ";
 
+// WHERE conditions
 if (!empty($conditions)) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
 }
 
 $sql .= " GROUP BY r.id";
 
+// Sorting based on filter
 if ($filter === 'total_time') {
     $sql .= " ORDER BY total_time ASC, r.created_at DESC";
 } elseif ($filter === 'ingredients') {
@@ -50,9 +58,12 @@ if ($filter === 'total_time') {
     $sql .= " ORDER BY r.created_at DESC";
 }
 
+// Run query
 $result = $connection->query($sql);
+if (!$result) {
+    die("Query error: " . $connection->error);
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +104,7 @@ $result = $connection->query($sql);
 
     <div class="controls-row">
       <div class="controls-left">
-        <!-- CATEGORY DROPDOWN -->
+        <!-- category dropdown -->
         <div class="dropdown" id="category-dropdown">
           <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
             <span>Category</span>
@@ -111,7 +122,7 @@ $result = $connection->query($sql);
           </ul>
         </div>
 
-        <!-- FILTER DROPDOWN -->
+        <!-- filter dropdown -->
         <div class="dropdown" id="filter-dropdown">
           <button class="drop-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
             <span>Add Filter</span>
@@ -159,7 +170,6 @@ $result = $connection->query($sql);
         <?php endwhile; ?>
       <?php else: ?>
         <?php if ($currentCategory !== 'all' && $currentCategory !== ''): ?>
-          <!-- No recipes yet for this category -->
           <article class="card card-empty">
             <h3><?php echo htmlspecialchars($currentCategory); ?> recipes to come!</h3>
             <p class="meta">
@@ -169,7 +179,6 @@ $result = $connection->query($sql);
             </p>
           </article>
         <?php else: ?>
-          <!-- No recipes at all / or only filter removed everything -->
           <article class="card card-empty">
             <h3>No recipes found</h3>
             <p class="meta">
@@ -217,6 +226,7 @@ $result = $connection->query($sql);
       'nut_free': 'Nut Free',
       'dairy_free': 'Dairy Free'
     };
+
     if (currentFilterFromPHP && filterLabelFromParam[currentFilterFromPHP]) {
       selectedFilters.add(filterLabelFromParam[currentFilterFromPHP]);
     }
@@ -254,17 +264,17 @@ $result = $connection->query($sql);
       x.textContent = '✕';
 
       x.addEventListener('click', () => {
+        const params = new URLSearchParams(window.location.search);
+
         if (key === 'category') {
           selectedCategory = '';
-          const params = new URLSearchParams(window.location.search);
           params.delete('category');
-          window.location = 'recipes.php' + (params.toString() ? ('?' + params.toString()) : '');
         } else {
           selectedFilters.delete(value);
-          const params = new URLSearchParams(window.location.search);
           params.delete('filter');
-          window.location = 'recipes.php' + (params.toString() ? ('?' + params.toString()) : '');
         }
+
+        window.location = 'recipes.php' + (params.toString() ? ('?' + params.toString()) : '');
       });
 
       tag.append(k, v, x);
@@ -331,7 +341,7 @@ $result = $connection->query($sql);
       const params = new URLSearchParams(window.location.search);
       params.delete('category');
       params.delete('filter');
-      window.location = 'recipes.php' + (params.toString() ? ('?' + params.toString()) : '');
+      window.location = 'recipes.php';
     });
 
     renderTags();
@@ -339,4 +349,3 @@ $result = $connection->query($sql);
   </script>
 </body>
 </html>
-

@@ -2,15 +2,21 @@
 require 'db.php';
 
 $slug = $_GET['slug'] ?? '';
-if (!$slug) {
+if ($slug === '') {
   die("No recipe specified.");
 }
 
-// Load main recipe row
-$stmt = $connection->prepare("SELECT * FROM recipes WHERE slug = ?");
-$stmt->bind_param("s", $slug);
-$stmt->execute();
-$recipe = $stmt->get_result()->fetch_assoc();
+$sqlRecipe = "SELECT * FROM recipes WHERE slug = ?";
+$stmtRecipe = $connection->prepare($sqlRecipe);
+if (!$stmtRecipe) {
+  die("Prepare failed: " . $connection->error);
+}
+
+$stmtRecipe->bind_param("s", $slug);
+$stmtRecipe->execute();
+$resultRecipe = $stmtRecipe->get_result();
+$recipe = $resultRecipe->fetch_assoc();
+$stmtRecipe->close();
 
 if (!$recipe) {
   die("Recipe not found.");
@@ -18,8 +24,13 @@ if (!$recipe) {
 
 $recipe_id = (int)$recipe['id'];
 
-// INGREDIENTS 
-$stmtIng = $connection->prepare("SELECT amount, unit, item FROM ingredients WHERE recipe_id = ?");
+$sqlIng = "SELECT amount, unit, item 
+  FROM ingredients 
+  WHERE recipe_id = ?";
+$stmtIng = $connection->prepare($sqlIng);
+if (!$stmtIng) {
+  die("Prepare failed: " . $connection->error);
+}
 $stmtIng->bind_param("i", $recipe_id);
 $stmtIng->execute();
 $ingredientsResult = $stmtIng->get_result();
@@ -27,13 +38,18 @@ $ingredients = [];
 while ($row = $ingredientsResult->fetch_assoc()) {
   $ingredients[] = $row;
 }
+$stmtIng->close();
 $ingredientCount = count($ingredients);
 
-// STEPS (image + text)
-$stmtStep = $connection->prepare("SELECT step_number, step_text, step_image 
-                            FROM recipe_steps 
-                            WHERE recipe_id = ? 
-                            ORDER BY step_number ASC");
+
+$sqlSteps = "SELECT step_number, step_text, step_image 
+  FROM recipe_steps 
+  WHERE recipe_id = ? 
+  ORDER BY step_number ASC";
+$stmtStep = $connection->prepare($sqlSteps);
+if (!$stmtStep) {
+  die("Prepare failed: " . $connection->error);
+}
 $stmtStep->bind_param("i", $recipe_id);
 $stmtStep->execute();
 $stepsResult = $stmtStep->get_result();
@@ -41,8 +57,9 @@ $steps = [];
 while ($row = $stepsResult->fetch_assoc()) {
   $steps[] = $row;
 }
+$stmtStep->close();
 
-// First step image will be used as the big ingredients collage 
+// First image for title page  
 $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 ?>
 <!DOCTYPE html>
@@ -76,16 +93,15 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
     }
 
     .recipe-btn-row-left {
-    text-align: left;
-    margin: 1rem 0 2rem;
-    padding-left: 1rem;
-}
+      text-align: left;
+      margin: 1rem 0 2rem;
+      padding-left: 1rem;
+    }
 
-.recipe-btn-row-center {
-    text-align: center;
-    margin: 2rem 0;
-}
-
+    .recipe-btn-row-center {
+      text-align: center;
+      margin: 2rem 0;
+    }
 
     .recipe-btn {
       display: inline-flex;
@@ -110,7 +126,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       font-size: 1.1rem;
     }
 
-    /* Big hero image */
     .recipe-main-img {
       display: block;
       width: 80%;
@@ -119,7 +134,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       border-radius: 18px;
     }
 
-    /* Title / subtitle / intro */
     .recipe-title-block {
       text-align: center;
       margin-bottom: 2.5rem;
@@ -179,7 +193,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       line-height: 1.7;
     }
 
-    /* Ingredients section */
     .ingredients-section {
       margin-bottom: 3rem;
       text-align: left;
@@ -260,11 +273,10 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 
     <nav class="hero-nav">
       <ul>
- <li><a href="index.php">Home</a></li>
-<li><a href="about.php">About</a></li>
-<li><a href="recipes.php">Recipes</a></li>
-<li><a href="contact.php">Contact</a></li>
-
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="recipes.php">Recipes</a></li>
+        <li><a href="contact.php">Contact</a></li>
       </ul>
     </nav>
   </section>
@@ -286,18 +298,16 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       >
     <?php endif; ?>
 
-    <!-- Title / subtitle / intro -->
     <section class="recipe-title-block">
       <h2 class="recipe-title-big">
         <?php echo htmlspecialchars($recipe['title']); ?>
       </h2>
 
-    <?php if (!empty($recipe['subtitle'])): ?>
-  <p class="recipe-subtitle">
-    <?php echo htmlspecialchars($recipe['subtitle']); ?>
-  </p>
-<?php endif; ?>
-
+      <?php if (!empty($recipe['subtitle'])): ?>
+        <p class="recipe-subtitle">
+          <?php echo htmlspecialchars($recipe['subtitle']); ?>
+        </p>
+      <?php endif; ?>
 
       <div class="recipe-stats-row">
         <div class="stat-block">
@@ -337,7 +347,7 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       <?php if (!empty($ingredientsCollageImage)): ?>
         <img
           src="<?php echo htmlspecialchars($ingredientsCollageImage); ?>"
-          alt="Quiche ingredients"
+          alt="ingredients"
           class="ingredients-hero-img"
         >
       <?php endif; ?>
@@ -358,13 +368,12 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
 
       <?php foreach ($steps as $index => $step): ?>
         <article class="step-block">
-          <?php
-            if ($index > 0 && !empty($step['step_image'])): ?>
-              <img
-                src="<?php echo htmlspecialchars($step['step_image']); ?>"
-                alt="Step <?php echo (int)$step['step_number']; ?>"
-                class="step-image"
-              >
+          <?php if ($index > 0 && !empty($step['step_image'])): ?>
+            <img
+              src="<?php echo htmlspecialchars($step['step_image']); ?>"
+              alt="Step <?php echo (int)$step['step_number']; ?>"
+              class="step-image"
+            >
           <?php endif; ?>
 
           <p class="step-text">
@@ -377,7 +386,6 @@ $ingredientsCollageImage = $steps[0]['step_image'] ?? '';
       <?php endforeach; ?>
     </section>
 
-    <!-- back-to-top button -->
     <div class="recipe-btn-row-center">
       <a href="#top" class="recipe-btn">
         <span class="arrow">↑</span>

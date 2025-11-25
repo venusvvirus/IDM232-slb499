@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 
-$sql = 'Selelct id, name, email, age FROM users';
+$sql = 'Select id, name, email, age FROM users';
 $result = $connection->query($sql);
 ?>
 

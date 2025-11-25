@@ -1,5 +1,5 @@
 <?php
-// ---------- SIMPLE CONTACT / SUBSCRIBE HANDLER ----------
+
 $errors  = [];
 $success = false;
 
@@ -20,13 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (empty($errors)) {
-    // TODO: change this to your real email
+ 
     $to      = 'you@example.com';
     $subject = 'New Tsunam Eats Subscriber';
     $body    = "Name: {$name}\nEmail: {$email}\n\nMessage:\n{$message}";
     $headers = "From: noreply@tsunameats.local\r\nReply-To: {$email}";
 
-    // Suppress errors from mail() in case it's not configured on local dev
     @mail($to, $subject, $body, $headers);
 
     $success = true;

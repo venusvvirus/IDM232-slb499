@@ -1,5 +1,8 @@
 <?php
-require 'db.php';
+require_once 'db.php';
+if (!isset($connection) || !$connection instanceof mysqli) {
+    die('Database connection not available.');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +20,7 @@ require 'db.php';
   <section class="hero">
     <img src="images/Homescreenimg.jpg" alt="Home background" class="hero-img">
     <div class="overlay"></div>
-   
+
     <h1 class="logo">TSUNAM EATS</h1>
 
     <nav class="hero-nav">
@@ -41,16 +44,15 @@ require 'db.php';
         <span class="handle">@tsunam.eats</span> was created in 2024 by
         Saffron Buscemi and Kunaal Krishnan, a Drexel college couple.
         The name pays homage to their combined names, Sunaal, which sounds
-        similar to the beginning of the word tsunami. Somewhere along the
-        lines, they decided merging the ship name with eats was a great
-        play on the word.
+        similar to the beginning of the word tsunami — and merging it with 
+        "eats" was too perfect to ignore.
       </p>
 
       <p>
-        Since then, every meal they make together has been posted on that
-        Instagram account. With the account’s 2 year anniversary coming up,
-        they thought it was time to share each of the recipes, made with the
-        utmost amount of love.
+        Since then, every meal they make together has been posted on the
+        Instagram account. With the account’s 2-year anniversary approaching,
+        it felt like the right moment to share each recipe — all made with
+        an abundance of love.
       </p>
 
       <p class="note">
