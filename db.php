@@ -1,18 +1,4 @@
 <?php
-// db.php – shared DB connection
-
-// $host = 'localhost';
-//$db   = 'tsunameats_db';
-//$user = 'root';
-//$pass = 'root'; // MAMP default is often 'root'; if that fails, try empty string ''
-
-//$conn = new mysqli($host, $user, $pass, $db);
-
-//if ($conn->connect_error) {
-//  die("Connection failed: " . $conn->connect_error);
-//}
-//
-
 $env_vars = [
     'DB_SERVER'   => $_SERVER['REDIRECT_DB_SERVER']   ?? $_SERVER['DB_SERVER']   ?? null,
     'DB_USERNAME' => $_SERVER['REDIRECT_DB_USERNAME'] ?? $_SERVER['DB_USERNAME'] ?? null,
@@ -28,7 +14,6 @@ define('DB_USER',   $env_vars['DB_USERNAME']);
 define('DB_PASS',   $env_vars['DB_PASSWORD']);
 define('DB_NAME',   $env_vars['DB_NAME']);
 
-// Create database connection 
 $connection = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 
 if ($connection->connect_error)
