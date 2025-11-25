@@ -1,8 +1,5 @@
 <?php
-require_once 'db.php';
-if (!isset($connection) || !$connection instanceof mysqli) {
-    die('Database connection not available.');
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
