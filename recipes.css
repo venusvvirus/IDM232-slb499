@@ -227,3 +227,32 @@
     .recipe-search { top: 14px; right: 14px; }
   }
   
+@media (max-width: 560px) {
+
+  .drop-trigger {
+    padding: 10px 16px;   
+    width: 180px;          
+    font-size: 0.9rem;
+  }
+
+  .tag {
+    padding: 6px 8px;
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .clear-all {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .controls-left,
+  .controls-right {
+    gap: 8px;
+  }
+
+  .controls-row {
+    gap: 12px;
+    justify-content: center;
+  }
+}
