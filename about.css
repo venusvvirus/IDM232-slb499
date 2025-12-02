@@ -48,7 +48,22 @@
   @media (min-width: 700px) {
     .logo { top: 58vh; }
   }
-  .hero .logo {
-    top: 58vh;      
-  }
   
+.hero .logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 58vh;                 /* or whatever you liked before */
+  margin: 0;
+  z-index: 2;
+  color: #FFF7E4;
+  text-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+@media (max-width: 560px) {
+  .hero .logo {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
