@@ -1,0 +1,139 @@
+:root {
+    --mint: #71b69c;
+    --bg: #050505;
+    --text-light: #f5f5f5;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--text-light);
+    font-family: "Afacad", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+  }
+  
+  .cs-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    background: var(--bg);
+  }
+  
+  .hero-slide {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.5)
+    );
+  }
+  
+  .hero-title {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Afacad", system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    font-size: clamp(3.8rem, 4vw, 5rem);
+    text-transform: uppercase;
+    color: #f8f1d0;
+    text-align: center;
+  }
+  
+  .hero-credit {
+    position: absolute;
+    left: 3vw;
+    bottom: 3vh;
+    font-family: "Afacad", system-ui, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+  
+  
+  .cs-section {
+    background: var(--bg);
+    padding-bottom: 4rem;
+  }
+  
+  .full-img {
+    width: 85%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 6px;
+  }
+  
+  
+  .cs-text {
+    max-width: 900px;
+    margin: 2.5rem auto 0;
+    padding: 0 1.5rem 0;
+    font-size: 1.3rem;
+    line-height: 1.7;
+  }
+  
+  .cs-text h2 {
+    font-family: "Luxurious Script", cursive;
+    font-size: 4.6rem;
+    font-weight: 300;
+    color: var(--mint);
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cs-text p + p {
+    margin-top: 1rem;
+  }
+  
+  /* Responsive tweaks */
+  
+  @media (max-width: 768px) {
+    .hero-slide {
+      min-height: 90vh;
+    }
+  
+    .full-img {
+        width: 92%;
+      }
+    .hero-credit {
+      font-size: 0.95rem;
+    }
+  
+    .cs-text {
+      margin-top: 2rem;
+      font-size: 1rem;
+    }
+  
+    .cs-text h2 {
+      font-size: 2.2rem;
+    }
+  }
+  

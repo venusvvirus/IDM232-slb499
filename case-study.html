@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tsunam Eats • IDM 232 Case Study</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Afacad:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+</head>
+<body>
+  <div class="cs-wrapper">
+
+    <section class="hero-slide">
+      <img src="images/hero.jpg" alt="Tsunam Eats hero" class="hero-img" />
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-title">
+        TSUNAM EATS
+      </div>
+
+      <div class="hero-credit">
+        <span>Saffron Buscemi</span><br />
+        <span>IDM 232</span>
+      </div>
+    </section>
+    <div class="cs-text">
+        <h2>Overview</h2>
+        <p>
+        This website serves as a recipe database for meals posted onto the Instagram handle, 
+        @tsunam.eats. The owners of @tsunam.eats requested the website have a strong sense of 
+        brand imaging, playing homage to the platform’s name.  They wanted the overall design 
+        to reflect sophisticated elegance. Since their instagram account only posts pictures 
+        and the names of the meals they make, having a website linked to their bio where 
+        followers can find the full recipes for each post would boost user interaction. 
+        It also attracts other visitors to the site that may not use Instagram to find 
+        food recipes. Another component the client requested was the ability to select 
+        categories and filters for the recipe pages. This adds convenience for those with 
+        dietary restrictions or those looking for meals that take the least amount of time
+        to make. 
+        </p>
+      </div>
+    </section>
+    <div class="cs-text">
+        <h2>Context & Challenge</h2>
+        <p>
+            @tsunam.eats is an Instagram account founded in 2024. It was created by a Drexel 
+            University couple, Saffron Buscemi and Kunaal Krishnan. Since it’s establishment, 
+            it has amassed over 3,000 views each month and has gained a loyal follower base.
+             Much of the feedback they get from followers is to have access the full recipes 
+             for each post. By creating a website for this, recipes can be more personalized 
+             to fit the needs/desires of users. 
+        </p>
+        <p>
+            Our development team (me) was given 11 weeks to create this website. It had to use 
+            PHP as its primary language and a MySQL database to store each of the recipes used. 
+            Another requirement was it had to be hosted both locally and publicly. The hero image 
+            for each page also had to incorporate two people eating with The Great Wave painting 
+            shown in the back. 
+        </p>
+        <p>
+            The overarching goal of the project was to create a cohesive recipe website that properly
+            reflected the story behind @tsunam.eats and was an easy, efficient way to browse various
+            recipes. 
+        </p>
+      </div>
+    </section>
+</section>
+<section class="cs-section">
+<div class="cs-text">
+    <h2>Process & Insight</h2>
+    <p>
+        Moodboard: I began by creating a moodboard based on existing recipe website designs. I specifically
+        appreciated examples that reflected bright color palettes and displayed cook time and ingredient 
+        list at the top of the recipe pages.  
+    </p>
+  </div>
+</section>
+    <section class="cs-section">
+      <img src="images/image1.png" alt="Tsunam Eats moodboard" class="full-img" />
+      <div class="cs-text">
+      <h2></h2>
+        <p>
+        Home Page: A main design inspiration I wanted to incorporate into the home page is this trio of plates
+        shown below. I began by incorporating it following the hero image. I initially gave it a ‘beachy vibe’,
+        as I thought it best reflected the introductory pun (“Wave Hello to Your Next Favorite Meal”) welcoming
+        the user to the site. However, after receiving user feedback, I decided to make the design compliment 
+        the hero image more by using darker colors for a higher contrast and fonts that provided a more 
+        sophisticated, less youthful look. These plates also acted as navigation buttons to each of the main 
+        pages of the website. The end result allowed the design to feel more high end, as it it was for a fancy 
+        restaurant. 
+        </p>
+        </div>
+    </section>
+
+
+    <section class="cs-section">
+      <img src="images/image2.png" alt="Home page design iterations" class="full-img" />
+
+      <div class="cs-text">
+        <h2></h2>
+        <p>
+        About Page: For the about page, I provided the story behind the Instagram account. I ensured 
+        it felt like a personal note written by the couple, reflected through their signage at the end. 
+        I again had to change a lot of design elements  of the initial iteration to make it appear more 
+        professional and cohesive with the top of the screen. While the finalized design used blue text 
+        throughout the page, once I began coding I decided to just keep the Instagram handle name in this 
+        color to provide an extra pop but allow the rest of the text to be more legible. 
+        </p>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <img src="images/image3.jpg" alt="About page design iterations" class="full-img" />
+
+      <div class="cs-text">
+        <h2></h2>
+        <p>
+        Recipes Page: For the recipes page, it was important for each recipe to have a picture to show what 
+        the finished meal will look like. It was also important for users to know how long each recipe took 
+        to make, without having to click on it. These were key design elements I incorporated, along with  
+        the filter and category options. To the right of these features is also the ability to see what filters
+        or categories have been selected. I used the MySQL database to properly filter results based on what is 
+        selected for them. 
+        </p>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <img src="images/image4.jpg" alt="Recipe cards and filter UI" class="full-img" />
+
+      <div class="cs-text">
+        <h2></h2>
+        <p>
+        Individual Recipe Pages: Once a recipe was selected from the recipes page, the user would be directed to that 
+        specific recipe page. It was crucial for the design and layout of these pages to be consistent for each recipe. 
+        I used MySQL to help with structuring the steps and images used for each.  I made sure each page had a back 
+        button at the top, followed with an expanded main image. Following the title would be key elements of the recipe, 
+        including total time to cook and number of ingredients. A small description of the recipe followed. I wanted to 
+        ensure these pages were similar to standard layouts of online recipes. I then used a picture of all the ingredients 
+        above the bullet point list to make it easier to visualize. 
+        </p>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <img src="images/image5.png" alt="Recipe top section and ingredients layout" class="full-img" />
+
+      <div class="cs-text">
+        <h2></h2>
+        <p>
+        Following the list of ingredients would then be the instructions for the recipe. These instructions where broken down 
+        into steps, which were accompanied with images, respectively. At the end of the last step, I made sure to include a back 
+        button, so the user had the option to get back to the top of the page without having to scroll.
+        </p>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <img src="images/image6.jpg" alt="Recipe instruction steps" class="full-img" />
+
+      <div class="cs-text">
+        <h2></h2>
+        <p>
+        Contact Page: The final page of this website is the contact page. This allows user to join the site’s newsletter and even 
+        send messages to Saffron and Kunaal, whether for inquiries, feedback, recipe requests, or collaborations.  This page is simple, 
+        offering the ability to subscribe and write something to the owners at the same time. Once the form is submitted, a thank you 
+        message appears on the screen, as well as the ability to return back to the original contact page.
+        </p>
+      </div>
+    </section>
+
+
+    <section class="cs-section">
+      <img src="images/image7.png" alt="Contact page and thank you state" class="full-img" />
+
+      <div class="cs-text">
+        <h2>The Solution</h2>
+        <p>
+        Video of Final Website: https://vimeo.com/1142308347?share=copy&fl=sv&fe=ci
+        </p>
+        <p>
+        Link to Live Site: https://digmstudents.westphal.drexel.edu/~slb499/
+        </p>
+        <p>
+        The completed website proved to be a success. While some of the recipe images tend to lag when loading, they have been optimized 
+        to reduce this. I ensured the website fit the brand of Tsunam Eats, told a story, was visually appealing, and easy to use. 
+        Completely changing the design of the initial design layout proved to be a great choice, as the website is left looking cohesive 
+        bottom to top. 
+        </p>
+      </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-text">
+          <h2>The Results</h2>
+          <p>
+            Since the launch of their website, Saffron and Kunaal have seen a rise in visitors on their Instagram page. The contact page 
+            proved to be a great addition, as many followers use it to submit requests for meals and stay more connected with the channel. 
+            It has even led followers to recreate meals and post them, now that they can finally follow along with each recipe. 
+            User testing also showed that the overall design of the website it rated highly, as it has a unique look to it but still 
+            uses standard formatting of recipe websites. 
+          </p>
+        </div>
+      </section>
+
+  </div>
+</body>
+</html>
